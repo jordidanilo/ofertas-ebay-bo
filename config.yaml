@@ -7,22 +7,28 @@
 casillero_producto_pequeno: 9
 
 # ZIP de tu casillero en Florida (para que eBay calcule el envío hasta allá)
-zip_casillero: "33166"
+zip_casillero: "33195"
 
+# Horas (hora Ecuador, formato 24 h) en las que el bot no busca ni avisa.
+# Lo que se publique de noche te llega en la primera revisión de la mañana.
+horario_silencio:
+  activo: true
+  desde: 0   # 12:00 am
+  hasta: 7   # 7:00 am
+
+# Solo ofertas SÚPER buenas: 0.40 = al menos 40% más barato que el promedio en eBay.
+# Si te llegan muy pocos avisos, bájalo (ej. 0.30). Si te llegan muchos, súbelo (ej. 0.50).
 subastas:
   # Avisar de subastas que terminan dentro de estos minutos
   minutos_antes_de_terminar: 75
   # No avisar si ya falta menos que esto (no alcanzarías a entrar)
   minutos_minimos_restantes: 5
-  # Avisar solo si la puja actual + envío está al menos este % por debajo del promedio
-  # 0.25 = 25% más barato que el promedio
-  descuento_minimo: 0.25
+  descuento_minimo: 0.40
 
 comprar_ahora:
   # Solo publicaciones nuevas (de las últimas X horas)
   horas_publicacion_nueva: 24
-  # Avisar solo si precio + envío está al menos este % por debajo del promedio
-  descuento_minimo: 0.30
+  descuento_minimo: 0.40
 
 vendedor:
   calificacion_minima: 97   # % de calificación positiva
@@ -232,6 +238,8 @@ busquedas:
     excluir: [band only, charger, case only, screen protector, activation]
 
   # ---------- Celulares (categoría 9355) ----------
+  # Todo lo de esta categoría (también lo que agregues con /agregar) solo pasa
+  # si eBay lo marca como liberado Y el título dice "unlocked".
   - nombre: iPhone 15 Pro
     consulta: iPhone 15 Pro unlocked
     categoria: 9355

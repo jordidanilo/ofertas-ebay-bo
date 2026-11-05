@@ -2,10 +2,30 @@
 
 Revisa eBay **cada 20 minutos**, gratis y sin tu PC encendida, y te avisa por Telegram de:
 
-- ⏰ **Subastas que terminan en la próxima hora** cuyo precio actual está al menos **25% por debajo** del promedio.
-- 🔥 **Publicaciones nuevas de "Comprar ahora"** al menos **30% por debajo** del promedio.
+- ⏰ **Subastas que terminan en la próxima hora** cuyo precio actual está al menos **40% por debajo** del promedio.
+- 🔥 **Publicaciones nuevas de "Comprar ahora"** al menos **40% por debajo** del promedio.
 
 **Solo notifica.** Nunca puja ni compra nada.
+
+- 🌙 **Horario de silencio:** de 12:00 am a 7:00 am (hora Ecuador) no busca ni avisa.
+- 📱 **Celulares:** solo te avisa de equipos **unlocked**.
+
+## 💬 Comandos en Telegram
+
+Escríbele a tu bot:
+
+| Comando | Qué hace |
+|---|---|
+| `/lista` | Muestra los productos que está buscando, con número |
+| `/agregar Ryzen 7 5800X` | Empieza a buscar ese producto |
+| `/quitar 3` o `/quitar 5800X` | Deja de buscar ese producto |
+| `/pausa` | No busca ni avisa hasta que escribas `/activar` |
+| `/activar` | Vuelve a buscar y avisar |
+| `/ayuda` | Muestra los comandos |
+
+⏱️ El bot lee tus mensajes cada vez que corre (cada ~20 min), así que **la respuesta puede tardar hasta unos 20 minutos**. Si quieres respuesta inmediata: **Actions → Ofertas eBay → Run workflow**.
+
+Solo obedece mensajes de **tu** chat (`TELEGRAM_CHAT_ID`); si otra persona le escribe, la ignora.
 
 ---
 
@@ -95,7 +115,8 @@ Abre `config.yaml` en GitHub y haz clic en el lápiz ✏️. Para agregar una b�
 
 **Otros ajustes útiles** (arriba del archivo):
 
-- `descuento_minimo`: súbelo (ej. `0.35`) si te llegan demasiados avisos; bájalo (ej. `0.20`) si te llegan muy pocos.
+- `descuento_minimo` (hoy `0.40`): súbelo (ej. `0.50`) si te llegan demasiados avisos; bájalo (ej. `0.30`) si te llegan muy pocos.
+- `horario_silencio`: cambia `desde` / `hasta` (hora Ecuador, 0 a 23) o pon `activo: false` para quitarlo.
 - `minutos_antes_de_terminar`: con cuánto tiempo de anticipación avisar de subastas.
 - `calificacion_minima` / `ventas_minimas`: qué tan confiable debe ser el vendedor.
 
