@@ -1,0 +1,254 @@
+# =====================================================================
+#  Configuración del bot de ofertas de eBay (NextBit Core)
+#  Puedes editar este archivo directo en GitHub (ícono del lápiz ✏️).
+# =====================================================================
+
+# Lo que cobra tu casillero por producto pequeño (RAM, procesador, M.2, relojes...)
+casillero_producto_pequeno: 9
+
+# ZIP de tu casillero en Florida (para que eBay calcule el envío hasta allá)
+zip_casillero: "33166"
+
+subastas:
+  # Avisar de subastas que terminan dentro de estos minutos
+  minutos_antes_de_terminar: 75
+  # No avisar si ya falta menos que esto (no alcanzarías a entrar)
+  minutos_minimos_restantes: 5
+  # Avisar solo si la puja actual + envío está al menos este % por debajo del promedio
+  # 0.25 = 25% más barato que el promedio
+  descuento_minimo: 0.25
+
+comprar_ahora:
+  # Solo publicaciones nuevas (de las últimas X horas)
+  horas_publicacion_nueva: 24
+  # Avisar solo si precio + envío está al menos este % por debajo del promedio
+  descuento_minimo: 0.30
+
+vendedor:
+  calificacion_minima: 97   # % de calificación positiva
+  ventas_minimas: 10        # cantidad mínima de calificaciones
+
+# Cada cuántas horas recalcular el precio promedio de cada búsqueda
+horas_cache_promedio: 12
+# Publicaciones mínimas para calcular un promedio confiable
+muestras_minimas_promedio: 8
+
+# Límites por ejecución (eBay da 5,000 llamadas gratis al día)
+max_llamadas_por_ejecucion: 70
+max_avisos_por_ejecucion: 15
+
+# Si el título tiene alguna de estas palabras, se descarta siempre
+excluir_siempre:
+  - for parts
+  - parts only
+  - not working
+  - broken
+  - as is
+  - as-is
+  - untested
+  - damaged
+  - cracked
+  - icloud
+  - locked
+  - blacklist
+  - bad esn
+  - box only
+  - empty box
+  - replica
+  - read description
+
+# =====================================================================
+#  BÚSQUEDAS
+#  nombre:    cómo aparece en los registros
+#  consulta:  lo que se escribe en el buscador de eBay
+#  categoria: número de categoría de eBay (ayuda a no mezclar cosas)
+#  pequeno:   true = se suma el casillero de $9 / false = "cotizar"
+#  requiere:  palabras que SÍ deben estar en el título (opcional)
+#  excluir:   palabras que NO deben estar en el título (opcional)
+#  precio_maximo: opcional, en USD
+#
+#  Cada búsqueda gasta ~145 llamadas al día. Con 5,000 gratis,
+#  puedes tener hasta ~30 búsquedas.
+# =====================================================================
+busquedas:
+  # ---------- RAM (categoría 170083) ----------
+  - nombre: DDR4 16GB 3200
+    consulta: DDR4 16GB 2x8GB 3200 desktop
+    categoria: 170083
+    pequeno: true
+    requiere: ["16gb", "3200"]
+    excluir: [sodimm, laptop, ecc, server, rdimm, "32gb", "64gb"]
+
+  - nombre: DDR4 16GB 3600
+    consulta: DDR4 16GB 2x8GB 3600 desktop
+    categoria: 170083
+    pequeno: true
+    requiere: ["16gb", "3600"]
+    excluir: [sodimm, laptop, ecc, server, rdimm, "32gb", "64gb"]
+
+  - nombre: DDR4 32GB 3200
+    consulta: DDR4 32GB 2x16GB 3200 desktop
+    categoria: 170083
+    pequeno: true
+    requiere: ["32gb", "3200"]
+    excluir: [sodimm, laptop, ecc, server, rdimm, "64gb", "128gb"]
+
+  - nombre: DDR4 32GB 3600
+    consulta: DDR4 32GB 2x16GB 3600 desktop
+    categoria: 170083
+    pequeno: true
+    requiere: ["32gb", "3600"]
+    excluir: [sodimm, laptop, ecc, server, rdimm, "64gb", "128gb"]
+
+  - nombre: DDR5 32GB 6000
+    consulta: DDR5 32GB 2x16GB 6000 desktop
+    categoria: 170083
+    pequeno: true
+    requiere: ["32gb", "6000"]
+    excluir: [sodimm, laptop, ecc, server, rdimm, "64gb"]
+
+  # ---------- Procesadores (categoría 164) ----------
+  - nombre: Ryzen 5 5600X
+    consulta: Ryzen 5 5600X
+    categoria: 164
+    pequeno: true
+    requiere: ["5600x"]
+    excluir: [5600x3d, motherboard, combo, bundle, cooler only]
+
+  - nombre: Ryzen 7 5700X
+    consulta: Ryzen 7 5700X
+    categoria: 164
+    pequeno: true
+    requiere: ["5700x"]
+    excluir: [5700x3d, motherboard, combo, bundle, cooler only]
+
+  - nombre: Ryzen 7 5800X3D
+    consulta: Ryzen 7 5800X3D
+    categoria: 164
+    pequeno: true
+    requiere: ["5800x3d"]
+    excluir: [motherboard, combo, bundle]
+
+  - nombre: Ryzen 5 7600X
+    consulta: Ryzen 5 7600X
+    categoria: 164
+    pequeno: true
+    requiere: ["7600x"]
+    excluir: [7600x3d, motherboard, combo, bundle]
+
+  - nombre: Ryzen 7 7800X3D
+    consulta: Ryzen 7 7800X3D
+    categoria: 164
+    pequeno: true
+    requiere: ["7800x3d"]
+    excluir: [motherboard, combo, bundle]
+
+  - nombre: Ryzen 5 9600X
+    consulta: Ryzen 5 9600X
+    categoria: 164
+    pequeno: true
+    requiere: ["9600x"]
+    excluir: [motherboard, combo, bundle]
+
+  # ---------- SSD M.2 (categoría 175669) ----------
+  - nombre: Samsung 990 Pro 2TB
+    consulta: Samsung 990 Pro 2TB NVMe
+    categoria: 175669
+    pequeno: true
+    requiere: ["990", "2tb"]
+    excluir: [heatsink only, enclosure]
+
+  - nombre: WD Black SN850X 1TB
+    consulta: WD Black SN850X 1TB
+    categoria: 175669
+    pequeno: true
+    requiere: ["sn850x", "1tb"]
+    excluir: [enclosure]
+
+  - nombre: Samsung 980 Pro 1TB
+    consulta: Samsung 980 Pro 1TB NVMe
+    categoria: 175669
+    pequeno: true
+    requiere: ["980", "1tb"]
+    excluir: [enclosure]
+
+  # ---------- Consolas (categoría 139971) ----------
+  - nombre: PS5 Slim
+    consulta: PS5 Slim console
+    categoria: 139971
+    pequeno: false
+    requiere: ["slim"]
+    excluir: [controller only, digital code, skin, cover, faceplate, stand only]
+
+  - nombre: Nintendo Switch OLED
+    consulta: Nintendo Switch OLED console
+    categoria: 139971
+    pequeno: false
+    requiere: ["oled"]
+    excluir: [dock only, case, skin, joy-con only, screen protector]
+
+  - nombre: Xbox Series X
+    consulta: Xbox Series X console
+    categoria: 139971
+    pequeno: false
+    requiere: ["series x"]
+    excluir: [controller only, skin, stand only]
+
+  # ---------- Laptops (categoría 177) ----------
+  - nombre: MacBook Air M1
+    consulta: MacBook Air M1
+    categoria: 177
+    pequeno: false
+    requiere: ["m1"]
+    excluir: [mdm, bad screen, no ssd, case, sleeve, keyboard cover]
+
+  - nombre: MacBook Air M2
+    consulta: MacBook Air M2
+    categoria: 177
+    pequeno: false
+    requiere: ["m2"]
+    excluir: [mdm, bad screen, no ssd, case, sleeve, keyboard cover]
+
+  - nombre: ThinkPad T14
+    consulta: Lenovo ThinkPad T14
+    categoria: 177
+    pequeno: false
+    requiere: ["t14"]
+    excluir: [no ssd, no hdd, no ram, bios password, bad screen]
+
+  # ---------- Apple Watch (categoría 178893) ----------
+  - nombre: Apple Watch Series 9 45mm
+    consulta: Apple Watch Series 9 45mm
+    categoria: 178893
+    pequeno: true
+    requiere: ["series 9", "45mm"]
+    excluir: [band only, charger, case only, screen protector, activation]
+
+  - nombre: Apple Watch Ultra 2
+    consulta: Apple Watch Ultra 2
+    categoria: 178893
+    pequeno: true
+    requiere: ["ultra 2"]
+    excluir: [band only, charger, case only, screen protector, activation]
+
+  # ---------- Celulares (categoría 9355) ----------
+  - nombre: iPhone 15 Pro
+    consulta: iPhone 15 Pro unlocked
+    categoria: 9355
+    pequeno: true
+    requiere: ["15 pro", "unlocked"]
+    excluir: [15 pro max, case, screen protector, housing]
+
+  - nombre: iPhone 14 Pro
+    consulta: iPhone 14 Pro unlocked
+    categoria: 9355
+    pequeno: true
+    requiere: ["14 pro", "unlocked"]
+    excluir: [14 pro max, case, screen protector, housing]
+
+  - nombre: Galaxy S24
+    consulta: Samsung Galaxy S24 unlocked
+    categoria: 9355
+    pequeno: true
+    requiere: ["s24", "unlocked"]
+    excluir: [s24 ultra, s24+, s24 plus, s24 fe, case, screen protector]
