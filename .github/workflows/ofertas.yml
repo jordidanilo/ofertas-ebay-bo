@@ -1,0 +1,56 @@
+name: Ofertas eBay
+
+on:
+  schedule:
+    # Cada 20 minutos (hora UTC). GitHub a veces se atrasa unos minutos.
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+    inputs:
+      prueba:
+        description: "Solo mandar un mensaje de prueba a Telegram"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ofertas-ebay
+  cancel-in-progress: false
+
+jobs:
+  buscar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Buscar ofertas
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python bot.py ${{ inputs.prueba && '--prueba' || '' }}
+
+      # Guarda qué ya te avisó, para no repetir avisos.
+      # Estos commits también mantienen el proyecto activo (GitHub pausa
+      # los programas automáticos si pasan 60 días sin cambios).
+      - name: Guardar estado
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Actualizar estado del bot"
+            git pull --rebase
+            git push
+          fi
